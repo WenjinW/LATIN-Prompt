@@ -30,3 +30,15 @@ bash script/claude_eval.sh 0 claude docvqa task_instruction
 ```bash
 bash script/claude_eval.sh 0 claude docvqa space
 ```
+
+## Citation
+```latex
+@misc{wang2023layout,
+      title={Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question Answering}, 
+      author={Wenjin Wang and Yunhao Li and Yixin Ou and Yin Zhang},
+      year={2023},
+      eprint={2306.00526},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
