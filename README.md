@@ -1,4 +1,5 @@
 # LATIN-Promot
+This is the Source Code of Paper: Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question Answering. ([arXiv](https://arxiv.org/abs/2306.00526))
 
 ## Prepare the environment
 `pip install -r requirements.txt`
