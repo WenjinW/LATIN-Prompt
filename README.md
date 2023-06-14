@@ -5,9 +5,9 @@ This is the source code of Paper: Layout and Task Aware Instruction Prompt for Z
 `pip install -r requirements.txt`
 
 ## Prepare environment variable for Cluade and OpenAI
-Set the `ANTHROPIC_API_KEY` for Cluade. Please refer to the script `./utils/claude.py`.
+Set the `ANTHROPIC_API_KEY` for [Cluade](https://docs.anthropic.com/claude/docs). Please refer to the script `./utils/claude.py`.
 
-Set the `OPENAI_API_KEY` and `OPENAI_API_BASE` for Azure OpenAI. Please refer to the script `./utils/openai_api.py`
+Set the `OPENAI_API_KEY` and `OPENAI_API_BASE` for [Azure OpenAI](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/overview). Please refer to the script `./utils/openai_api.py`
 
 ## Prepare the dataset
 Download and put the DocVQA dataset into the `./datas/docvqa`
