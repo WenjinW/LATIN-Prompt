@@ -12,24 +12,38 @@ Set the `OPENAI_API_KEY` and `OPENAI_API_BASE` for Azure OpenAI. Please refer to
 ## Prepare the dataset
 Download and put the DocVQA dataset into the `./datas/docvqa`
 
-## Example: Claude + LATIN-Prompt on DocVQA
+## Examples
+### Examples with Claude
+
+#### Example: Claude + LATIN-Prompt on DocVQA
 ```bash
 bash script/claude_eval.sh 0 claude docvqa task_instruction_space
 ```
 
-## Example: Claude + Plain Prompt on DocVQA
+#### Example: Claude + Plain Prompt on DocVQA
 ```bash
 bash script/claude_eval.sh 0 claude docvqa plain
 ```
 
-## Example: Claude + Task Description on DocVQA
+#### Example: Claude + Task Description on DocVQA
 ```bash
 bash script/claude_eval.sh 0 claude docvqa task_instruction
 ```
 
-## Example: Claude + Layout-aware Document on DocVQA
+#### Example: Claude + Layout-aware Document on DocVQA
 ```bash
 bash script/claude_eval.sh 0 claude docvqa space
+```
+
+### Examples with GPT-3.5-turbo
+#### Example: GPT-3.5-turbo + LATIN-Prompt on DocVQA
+```bash
+bash script/claude_eval.sh 0 gpt-35 docvqa task_instruction_space
+```
+
+#### Example: GPT-3.5-turbo + Plain Prompt on DocVQA
+```bash
+bash script/claude_eval.sh 0 gpt-35 docvqa plain
 ```
 
 ## Citation
