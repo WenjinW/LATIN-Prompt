@@ -19,7 +19,7 @@ import wandb
 
 from metric.anls import ANLS
 from utils.util import model_path, is_same_line, union_box, is_adj_line
-from utils import claude, space_layout
+from utils import space_layout
 
 
 PROMPT_DICT = {
@@ -144,6 +144,10 @@ def main():
     if custom_args.dataset_name == "mpdocvqa":
         data = datasets.load_dataset("utils/mpdocvqa.py")
 
+    if custom_args.model_name_or_path == "claude":
+        from utils import claude
+    elif custom_args.model_name_or_path == "gpt-35":
+        from utils import openai_api
 
     anls_metric = ANLS(
         result_dir=custom_args.results_dir,
