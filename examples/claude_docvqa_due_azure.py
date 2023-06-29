@@ -3,11 +3,7 @@ sys.path.append('./')
 import os
 from dataclasses import dataclass, field
 from tqdm import tqdm
-import math
 
-import torch
-from torch.utils.data import DataLoader
-from transformers import AutoTokenizer, LlamaForCausalLM
 from transformers import (
     set_seed,
     TrainingArguments,
@@ -16,10 +12,12 @@ from transformers import (
 from transformers.data.data_collator import DataCollatorMixin
 import datasets
 import wandb
+import openai
 
 from metric.anls import ANLS
-from utils.util import model_path, is_same_line, union_box, is_adj_line
+from utils.util import model_path, boxes_sort
 from utils import claude, space_layout, openai_api
+
 
 
 PROMPT_DICT = {
@@ -124,6 +122,7 @@ class CustomArguments:
         metadata={"help": "The split name. (val, test)"}
     )
 
+
     def __post_init__(self):
         # self.model_name_or_path = model_path[self.model_name_or_path]
         self.datas_dir = os.path.expanduser(self.datas_dir)
@@ -134,79 +133,29 @@ class DataCollatorForDocVQA(DataCollatorMixin):
         super().__init__()
         self.prompt_type = prompt_type
 
-
-
     def space_layout(self, texts, boxes):
+        # ids = boxes_sort(boxes)
+        # new_texts = [texts[i] for i in ids]
+        # new_boxes = [boxes[i] for i in ids]
+        # return space_layout.space_layout(new_texts, new_boxes)
 
+        # note: do not sort the boxes
         return space_layout.space_layout(texts, boxes)
 
     def __call__(self, features):
         batch = {
             "text": [],
-            "image": [],
             "question": [],
             "answers": [],
             "questionId": [],
-            "words": [],
-            "word_boxes": [],
         }
         for example in features:
             question = example["question"]
             batch["question"].append(question)
-            if self.prompt_type == "layout":
-                words = example["texts"]
-            else:
-                words = example["words"]
-            batch["words"].append(words)
 
             if self.prompt_type == "plain":
                 doc = " ".join(example["texts"])
                 text = PROMPT_DICT["prompt_plain"].format_map({
-                    "document": doc,
-                    "question": question
-                })
-            elif self.prompt_type == "demonstration_claude":
-                text = PROMPT_DICT["prompt_input_demonstration"].format_map({"document": " ".join(example["words"]), "question": question})
-            elif self.prompt_type == "demonstration_claude_text_xycut":
-                res_texts, res_boxes = self.xy_cut(
-                    example["texts"],
-                    example["text_boxes"],
-                    direction="y",
-                )
-                new_texts, new_boxes = [], []
-                while len(res_boxes) > 0:
-                    new_box = res_boxes.pop(0)
-                    new_text = res_texts.pop(0)
-                    # if the next box is in the same line with the current box
-                    # join them by tab
-                    while len(res_boxes) > 0 and is_same_line(new_box, res_boxes[0]):
-                        new_box = union_box(new_box, res_boxes[0])
-                        new_text += "\t" + res_texts.pop(0)
-                        res_boxes.pop(0)
-                    new_boxes.append(new_box)
-                    new_texts.append(new_text)
-                doc = "\n".join(new_texts)
-                text = PROMPT_DICT["prompt_input_demonstration"].format_map({
-                    "document": doc,
-                    "question": question
-                })
-            elif self.prompt_type == "demonstration_claude_text_space":
-                space_line_texts = self.space_layout(
-                    example["texts"],
-                    example["text_boxes"],
-                )
-                doc = "\n".join(space_line_texts)
-                text = PROMPT_DICT["prompt_input_demonstration"].format_map({
-                    "document": doc,
-                    "question": question
-                })
-            elif self.prompt_type == "demonstration_claude_text_short_space":
-                space_line_texts = self.space_layout(
-                    example["texts"],
-                    example["text_boxes"],
-                )
-                doc = "\n".join(space_line_texts)
-                text = PROMPT_DICT["prompt_input_demonstration_short"].format_map({
                     "document": doc,
                     "question": question
                 })
@@ -236,99 +185,13 @@ class DataCollatorForDocVQA(DataCollatorMixin):
                     "document": doc,
                     "question": question
                 })
-            elif self.prompt_type == "xycut":
-                res_texts, res_boxes = self.xy_cut(example["texts"], example["text_boxes"])
-                text = "Document:\n" + " ".join(res_texts) + "\n Question: " + question + "\nAnswer: "
-            elif self.prompt_type == "xycut_linesplit":
-                res_texts, res_boxes = self.xy_cut(example["texts"], example["text_boxes"])
-                text = "Document:\n" + "\n".join(res_texts) + "\nQuestion: " + question + "\nAnswer: "
-            elif self.prompt_type == "xycut_adjust":
-                res_texts, res_boxes = self.xy_cut(example["texts"], example["text_boxes"])
-                new_texts, new_boxes = [], []
-                while len(res_boxes) > 0:
-                    new_box = res_boxes.pop(0)
-                    new_text = res_texts.pop(0)
-                    # if the next box is in the same line with the current box
-                    # join them by tab
-                    while len(res_boxes) > 0 and is_same_line(new_box, res_boxes[0]):
-                        # 基于距离的规则判断
-                        new_box = union_box(new_box, res_boxes[0])
-                        new_text += "\t" + res_texts.pop(0)
-                        res_boxes.pop(0)
-                    new_boxes.append(new_box)
-                    new_texts.append(new_text)
-                
-                text = "Document:\n" + "\n".join(new_texts) + "\nQuestion: " + question + "\nAnswer: "
-            elif self.prompt_type == "xycut_adjust_line":
-                res_texts, res_boxes = self.xy_cut(example["texts"], example["text_boxes"])
-                new_texts, new_boxes = [], []
-                while len(res_boxes) > 0:
-                    new_box = res_boxes.pop(0)
-                    new_text = res_texts.pop(0)
-
-                    # if the next box is in the same line with the current box
-                    # join them by tab
-                    while len(res_boxes) > 0 and is_same_line(new_box, res_boxes[0]):
-                        # 基于距离的规则判断
-
-                        # TODO 可以加一步基于语义的判断，不符合则不连接
-                        new_box = union_box(new_box, res_boxes[0])
-                        new_text += "\t" + res_texts.pop(0)
-                        res_boxes.pop(0)
-                    new_boxes.append(new_box)
-                    new_texts.append(new_text)
-                
-                new_lines = []
-                new_line_boxes = []
-                while len(new_boxes) > 0:
-                    new_line = new_texts.pop(0)
-                    new_line_box = new_boxes.pop(0)
-                    current_line_box = new_line_box
-                    while len(new_boxes) > 0 and is_adj_line(current_line_box, new_boxes[0]):
-                        # TODO 基于语义的判断（语义模型的 loss）
-                        new_line_box = union_box(new_line_box, new_boxes[0])
-                        new_line += " " + new_texts.pop(0)
-                        current_line_box = new_boxes.pop(0)
-                    
-                    new_lines.append(new_line)
-                    new_line_boxes.append(new_line_box)
-
-                text = "Document:\n" + "\n".join(new_lines) + "\nQuestion: " + question + "\nAnswer: "
-            elif self.prompt_type == "alpaca":
-                prompt_input = PROMPT_DICT["prompt_input"]
-                text = prompt_input.format_map({
-                    "instruction": f"Extract the answer of the question: {question}, " + \
-                    "from the document content in the input. " + \
-                    "All words in the answer must come from the input.",
-                    "input": " ".join(words),
-                })
-            elif self.prompt_type == "layout":
-                prompt_input = PROMPT_DICT["prompt_input"]
-
-                layout_input = []
-                for word, box in zip(words, example["word_boxes"]):
-                    layout_input.append("{"+f"Text: {word}, Box: {box}"+"}")
-                    # layout_input.append(f"Text: {word}, Box: [{box[0]}, {box[1]}, {box[2]}, {box[3]}]")
-                layout_input = ",\n".join(layout_input)
-                layout_input = f"[\n{layout_input}\n]"
-                text = prompt_input.format_map({
-                    "instruction": f"Answer the question: {question}, " + \
-                    "according to the OCR results of a document image in the input. " + \
-                    "The response must be exactly extracted from the OCR results without any other words.",
-                    "input": f"{layout_input}",
-                })
-                # print(text)
             else:
                 raise ValueError("Invalid prompt type.")
             
             batch["text"].append(text)
-            batch["image"].append(example["image"])
             batch["answers"].append(example["answers"])
             batch["questionId"].append(example["questionId"])
-            if self.prompt_type in ["layout", "xycut"]:
-                batch["word_boxes"].append(example["text_boxes"])
-            else:
-                batch["word_boxes"].append(example["word_boxes"])
+
         
         return batch
 
@@ -351,8 +214,8 @@ def main():
 
     set_seed(training_args.seed)
 
-    if custom_args.dataset_name == "docvqa":
-        data = datasets.load_dataset("utils/docvqa.py")
+    if custom_args.dataset_name == "docvqa_due_azure":
+        data = datasets.load_dataset("utils/docvqa_due_azure.py")
 
     anls_metric = ANLS(
         result_dir=custom_args.results_dir,
@@ -364,17 +227,20 @@ def main():
         prompt_type=custom_args.prompt,
     )
 
-    all_preds = []
-    all_answers = []
-    all_questions = []
-    all_question_ids = []
-    
-    save_interval = 10
-    
+    save_interval = 20
+
     if "val" in custom_args.split_name:
         print("Process the val dataset.")
+
+        all_preds = []
+        all_answers = []
+        all_questions = []
+        all_question_ids = []
+        
+
         count = anls_metric.load_and_count("val")
         print(f"Begin from the {count+1}-th example.")
+        invalid_request_ids_val = []
         for i in tqdm(range(count, len(data["validation"])), desc='Processing'):
             example = data["validation"][i]
             print("="*30)
@@ -383,15 +249,18 @@ def main():
 
             if custom_args.model_name_or_path == "claude":
                 response = claude.cluade_completion(batch["text"][0])["completion"].strip()
-            elif custom_args.model_name_or_path == "gpt-35":
-                response = openai_api.openai_completion(batch["text"][0]).strip()
-            elif custom_args.model_name_or_path == "gpt-35-chat":
-                response = openai_api.openai_chat_completion(batch["text"][0]).strip()
-            
+            elif custom_args.model_name_or_path in ["gpt-35", "text-davinci-003"]:
+                try:
+                    response = openai_api.openai_completion(batch["text"][0]).strip()
+                except openai.error.InvalidRequestError:
+                    print("InvalidRequestError!!!")
+                    response = ""
+                    invalid_request_ids_val.append(i)
+
             generated_text = [
                 response
             ]
-            
+
             print(batch["answers"][0])
             print("Outputs:")
             print(generated_text)
@@ -426,7 +295,7 @@ def main():
 
         wandb.log({"val_anls": val_anls})
         print({"val_anls": val_anls})
-
+    
     if "test" in custom_args.split_name:
         print("Process the test dataset.")
         # evaluate on the test dataset
@@ -435,6 +304,7 @@ def main():
         all_preds = []
         all_question_ids = []
         all_questions = []
+        invalid_request_ids_test = []
         for i in tqdm(range(count, len(data["test"])), desc='Processing'):
             example = data["test"][i]
             print("="*30)
@@ -444,9 +314,12 @@ def main():
             if custom_args.model_name_or_path == "claude":
                 response = claude.cluade_completion(batch["text"][0])["completion"].strip()
             elif custom_args.model_name_or_path == "gpt-35":
-                response = openai_api.openai_completion(batch["text"][0]).strip()
-            elif custom_args.model_name_or_path == "gpt-35-chat":
-                response = openai_api.openai_chat_completion(batch["text"][0]).strip()
+                try:
+                    response = openai_api.openai_completion(batch["text"][0]).strip()
+                except openai.error.InvalidRequestError:
+                    print("InvalidRequestError!!!")
+                    response = ""
+                    invalid_request_ids_test.append(i)
             
             generated_text = [
                 response
@@ -479,6 +352,8 @@ def main():
             split="test"
         )
         print({"test_anls": test_anls})
+        print("invalid_request_ids_val:", invalid_request_ids_val)
+        print("invalid_request_ids_test:", invalid_request_ids_test)
 
 
 if __name__ == "__main__":

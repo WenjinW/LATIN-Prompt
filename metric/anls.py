@@ -143,8 +143,7 @@ class ANLS(object):
         return all_anls / len(qids)
     
     def load_and_save(self, qids, questions, predictions, references=None, split="val"):
-        os.makedirs(self.result_dir, exist_ok=True)
-        if self.dataset_name in ["docvqa", "infographicvqa"]:
+        if self.dataset_name in ["docvqa", "infographicvqa", "docvqa_due_azure", "infographicvqa_due_azure"]:
             return self.load_and_save_docvqa(qids, questions, predictions, references, split)
         elif self.dataset_name in ["mpdocvqa"]:
             return self.load_and_save_mpdocvqa(qids, questions, predictions, references, split)
@@ -152,8 +151,7 @@ class ANLS(object):
             raise NotImplementedError
 
     def compute_and_save(self, qids, questions, predictions, references=None, split="val"):
-        os.makedirs(self.result_dir, exist_ok=True)
-        if self.dataset_name in ["docvqa", "infographicvqa"]:
+        if self.dataset_name in ["docvqa", "infographicvqa", "docvqa_due_azure", "infographicvqa_due_azure"]:
             return self.compute_and_save_docvqa(qids, questions, predictions, references, split)
         elif self.dataset_name in ["mpdocvqa"]:
             return self.compute_and_save_mpdocvqa(qids, questions, predictions, references, split)

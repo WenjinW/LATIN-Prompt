@@ -24,6 +24,7 @@ model_path = {
     "alpaca-7b": os.path.expanduser("~/checkpoints/alpaca-7b"),
     "opt-iml-max-1.3b": "facebook/opt-iml-max-1.3b",
     "opt-iml-max-30b": "facebook/opt-iml-max-30b",
+    "vicuna-13b": "lmsys/vicuna-13b-v1.3",
 }
 
 
@@ -490,7 +491,7 @@ def is_adj_line(box1, box2):
 
 
 def boxes_sort(boxes):
-    """
+    """ From left top to right bottom
     Params:
         boxes: [[x1, y1, x2, y2], [x1, y1, x2, y2], ...]
     """
