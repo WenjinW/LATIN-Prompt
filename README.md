@@ -40,35 +40,52 @@ Download and put the DocVQA dataset into the `./datas/docvqa`
 ## Examples
 ### Examples with Claude
 
-#### Example: Claude + LATIN-Prompt on DocVQA
+#### Example: Claude + LATIN-Prompt on DocVQA (Azure OCR)
 ```bash
-bash script/claude_eval.sh 0 claude docvqa task_instruction_space
+bash script/claude_eval.sh 0 claude docvqa_due_azure task_instruction_space
 ```
 
-#### Example: Claude + Plain Prompt on DocVQA
+#### Example: Claude + Plain Prompt on DocVQA (Azure OCR)
 ```bash
-bash script/claude_eval.sh 0 claude docvqa plain
+bash script/claude_eval.sh 0 claude docvqa_due_azure plain
 ```
 
-#### Example: Claude + Task Description on DocVQA
+#### Example: Claude + Task Description on DocVQA (Azure OCR)
 ```bash
-bash script/claude_eval.sh 0 claude docvqa task_instruction
+bash script/claude_eval.sh 0 claude docvqa_due_azure task_instruction
 ```
 
-#### Example: Claude + Layout-aware Document on DocVQA
+#### Example: Claude + Layout-aware Document on DocVQA (Azure OCR)
 ```bash
-bash script/claude_eval.sh 0 claude docvqa space
+bash script/claude_eval.sh 0 claude docvqa_due_azure space
 ```
 
-### Examples with Azure GPT-3.5-turbo (ChatGPT)
+### Examples with Azure GPT-3.5-turbo (ChatGPT) Completion
+#### Example: GPT-3.5-turbo + LATIN-Prompt on DocVQA (Azure OCR)
+```bash
+bash script/claude_eval.sh 0 gpt-35 docvqa_due_azure task_instruction_space
+```
+
+#### Example: GPT-3.5-turbo + Plain Prompt on DocVQA (Azure OCR)
+```bash
+bash script/claude_eval.sh 0 gpt-35 docvqa_due_azure plain
+```
+
+### Examples with Azure GPT-3.5-turbo (ChatGPT) ChatCompletion
 #### Example: GPT-3.5-turbo + LATIN-Prompt on DocVQA
 ```bash
-bash script/claude_eval.sh 0 gpt-35 docvqa task_instruction_space
+bash script/claude_eval.sh 0 gpt-35-chat docvqa task_instruction_space
 ```
 
-#### Example: GPT-3.5-turbo + Plain Prompt on DocVQA
+### Examples with Alpaca and Vicuna
+#### Example: Alpaca + LATIN-Prompt on DocVQA (Azure OCR)
 ```bash
-bash script/claude_eval.sh 0 gpt-35 docvqa plain
+bash script/llama_eval.sh 0 alpaca-7b docvqa_due_azure task_instruction_space
+```
+
+#### Example: Vicuna + LATIN-Prompt on DocVQA (Azure OCR)
+```bash
+bash script/vllm_eval.sh 0 vicuna-13b docvqa_due_azure task_instruction_space
 ```
 
 ## Performance
