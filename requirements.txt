@@ -31,3 +31,4 @@ torchvision==0.15.1
 tqdm==4.65.0
 transformers==4.28.0.dev0
 wandb==0.15.0
+tiktoken==0.4.0
