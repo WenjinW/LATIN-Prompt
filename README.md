@@ -11,7 +11,7 @@ Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question A
 </p>
 
 ## News
-- We now provide implementations based on [Alpaca-7B](https://github.com/tatsu-lab/stanford_alpaca) and [Vicuna-13B](https://github.com/vllm-project/vllm). 
+- **2022.06**: We now provide implementations based on [Alpaca-7B](https://github.com/tatsu-lab/stanford_alpaca) and [Vicuna-13B](https://github.com/vllm-project/vllm). 
 
 ## Roadmap
 - [x] DUE OCR results
