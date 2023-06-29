@@ -1,5 +1,17 @@
-# LATIN-Prompt
-This is the source code of Paper: Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question Answering. ([arXiv](https://arxiv.org/abs/2306.00526))
+<h1 align="center">
+LATIN-Prompt
+</h1>
+
+<h3 align="center">
+Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question Answering
+</h3>
+
+<p align="center">
+  <a href="https://arxiv.org/abs/2306.00526"><img alt="Static Badge" src="https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg"></a>
+</p>
+
+
+
 
 ## Roadmap
 - [x] DUE OCR results
