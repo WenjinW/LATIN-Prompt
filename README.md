@@ -10,8 +10,8 @@ Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question A
   <a href="https://arxiv.org/abs/2306.00526"><img alt="Static Badge" src="https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg"></a>
 </p>
 
-
-
+## News
+- We now provide implementations based on [Alpaca-7B](https://github.com/tatsu-lab/stanford_alpaca) and [Vicuna-13B](https://github.com/vllm-project/vllm). 
 
 ## Roadmap
 - [x] DUE OCR results
