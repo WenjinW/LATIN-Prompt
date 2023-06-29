@@ -17,12 +17,12 @@ Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question A
 - [x] DUE OCR results
 - [x] Alpaca 7B
 - [x] Vicuna 13B
-- [x] Azure gpt-3.5-turbo + Completion
-- [ ] Azure gpt-3.5-turbo + ChatCompletion (doing)
+- [x] Azure OpenAI gpt-3.5-turbo + Completion
+- [ ] Azure OpenAI gpt-3.5-turbo + ChatCompletion (doing)
 - [ ] Azure text-davinci-003 + Completion (doing)
 - [ ] MPT-30B-Chat (todo)
 - [ ] Orca (todo)
-- [ ] gpt-4 (todo, there is currently no available API)
+- [ ] GPT-4 and offical OpenAI API (todo, we are working hard to seek access to official OpenAI API)
 
 
 ## Preparation
@@ -32,7 +32,9 @@ Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question A
 #### Prepare environment variable for Cluade and OpenAI
 Set the `ANTHROPIC_API_KEY` for [Cluade](https://docs.anthropic.com/claude/docs). Please refer to the script `./utils/claude.py`.
 
-Set the `OPENAI_API_KEY` and `OPENAI_API_BASE` for [Azure OpenAI](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/overview). Please refer to the script `./utils/openai_api.py`
+Set the `OPENAI_API_KEY` and `OPENAI_API_BASE` for [Azure OpenAI](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/overview). Please refer to the script `./utils/openai_api.py`. For the differences between Azure OpenAI and OpenAI, see [here](https://learn.microsoft.com/en-us/azure/cognitive-services/openai/overview#comparing-azure-openai-and-openai).
+
+**Note**: Currently, due to resource constraints, our experiments are all based on the Azure OpenAI API. At the same time, we are working hard to seek access to official OpenAI API. If you can provide relevant resources, please contact the author and we will be very grateful.
 
 #### Prepare the dataset
 Download and put the DocVQA dataset into the `./datas/docvqa`
