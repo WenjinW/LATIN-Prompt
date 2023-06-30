@@ -11,7 +11,8 @@ Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question A
 </p>
 
 ## News
-- **2022.06**: We now provide implementations based on [Alpaca-7B](https://github.com/tatsu-lab/stanford_alpaca) and [Vicuna-13B](https://github.com/vllm-project/vllm). 
+- **2023.06.30**: We now provide implementations based on Azure OpenAI text-davinci-003 Completion. 
+- **2023.06.29**: We now provide implementations based on [Alpaca-7B](https://github.com/tatsu-lab/stanford_alpaca) and [Vicuna-13B](https://github.com/vllm-project/vllm). 
 
 ## Roadmap
 - [x] DUE OCR results
@@ -19,7 +20,7 @@ Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question A
 - [x] Vicuna 13B
 - [x] Azure OpenAI gpt-3.5-turbo + Completion
 - [ ] Azure OpenAI gpt-3.5-turbo + ChatCompletion (doing)
-- [ ] Azure text-davinci-003 + Completion (doing)
+- [x] Azure OpenAI text-davinci-003 + Completion
 - [ ] MPT-30B-Chat (todo)
 - [ ] Orca (todo)
 - [ ] GPT-4 and offical OpenAI API (todo, we are working hard to seek access to official OpenAI API)
@@ -101,19 +102,18 @@ The Official OCR represents the performance is based on the OCR results provided
   overflow:hidden;padding:10px 5px;word-break:normal;}
 .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
   font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-pb0m{border-color:inherit;text-align:center;vertical-align:bottom}
 .tg .tg-lboi{border-color:inherit;text-align:left;vertical-align:middle}
 .tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
 .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
 </style>
-<table class="tg" style="undefined;table-layout: fixed; width: 1204px">
+<table class="tg" style="undefined;table-layout: fixed; width: 951px">
 <colgroup>
-<col style="width: 319.2px">
-<col style="width: 109.2px">
-<col style="width: 112.2px">
-<col style="width: 170.2px">
-<col style="width: 264.2px">
-<col style="width: 229.2px">
+<col style="width: 364.2px">
+<col style="width: 126.2px">
+<col style="width: 96.2px">
+<col style="width: 100.2px">
+<col style="width: 183.2px">
+<col style="width: 81.2px">
 </colgroup>
 <thead>
   <tr>
@@ -146,7 +146,7 @@ The Official OCR represents the performance is based on the OCR results provided
     <td class="tg-c3ow">+0.6167</td>
   </tr>
   <tr>
-    <td class="tg-lboi" rowspan="2">Azure ChatGPT (Completion)</td>
+    <td class="tg-lboi" rowspan="2">Azure OpenAI ChatGPT (Completion)</td>
     <td class="tg-c3ow">Plain</td>
     <td class="tg-c3ow">0.6866</td>
     <td class="tg-c3ow">-</td>
@@ -161,7 +161,7 @@ The Official OCR represents the performance is based on the OCR results provided
     <td class="tg-c3ow">+0.1340</td>
   </tr>
   <tr>
-    <td class="tg-lboi" rowspan="2">Azure ChatGPT (ChatCompletion)</td>
+    <td class="tg-lboi" rowspan="2">Azure OpenAI ChatGPT (ChatCompletion)</td>
     <td class="tg-c3ow">Plain</td>
     <td class="tg-c3ow">TODO</td>
     <td class="tg-c3ow">-</td>
@@ -176,19 +176,27 @@ The Official OCR represents the performance is based on the OCR results provided
     <td class="tg-c3ow">TODO</td>
   </tr>
   <tr>
+    <td class="tg-lboi">Azure OpenAI text-davinci-003 (Completion)</td>
+    <td class="tg-c3ow">LATIN</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">0.8188</td>
+    <td class="tg-c3ow">-</td>
+  </tr>
+  <tr>
     <td class="tg-lboi" rowspan="2">Alpaca (7B)</td>
     <td class="tg-c3ow">Plain</td>
     <td class="tg-c3ow">0.3567</td>
     <td class="tg-c3ow">-</td>
-    <td class="tg-pb0m">0.3506</td>
-    <td class="tg-pb0m">-</td>
+    <td class="tg-c3ow">0.3506</td>
+    <td class="tg-c3ow">-</td>
   </tr>
   <tr>
     <td class="tg-c3ow">LATIN</td>
     <td class="tg-c3ow">0.4200</td>
     <td class="tg-c3ow">+0.0633</td>
-    <td class="tg-pb0m">0.4304</td>
-    <td class="tg-pb0m">+0.0798 </td>
+    <td class="tg-c3ow">0.4304</td>
+    <td class="tg-c3ow">+0.0798 </td>
   </tr>
   <tr>
     <td class="tg-lboi" rowspan="2">Vicuna (13B)</td>
@@ -200,9 +208,9 @@ The Official OCR represents the performance is based on the OCR results provided
   </tr>
   <tr>
     <td class="tg-c3ow">LATIN</td>
-    <td class="tg-pb0m">0.4725 </td>
+    <td class="tg-c3ow">0.4725 </td>
     <td class="tg-c3ow">+0.4015</td>
-    <td class="tg-pb0m">0.4597 </td>
+    <td class="tg-c3ow">0.4597 </td>
     <td class="tg-c3ow">+0.3909</td>
   </tr>
 </tbody>
