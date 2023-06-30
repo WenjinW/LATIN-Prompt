@@ -94,7 +94,19 @@ bash script/vllm_eval.sh 0 vicuna-13b docvqa_due_azure task_instruction_space
 ### DocVQA (Azure OCR, DUE)
 The performance in this table is based on the Azure OCR results provided in [DUE Benchmark](https://github.com/due-benchmark) by default.
 The Official OCR represents the performance is based on the OCR results provided in [Robust Reading Competition](https://rrc.cvc.uab.es/?com=introduction)
-<table style="undefined;table-layout: fixed; width: 1204px">
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-pb0m{border-color:inherit;text-align:center;vertical-align:bottom}
+.tg .tg-lboi{border-color:inherit;text-align:left;vertical-align:middle}
+.tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+</style>
+<table class="tg" style="undefined;table-layout: fixed; width: 1204px">
 <colgroup>
 <col style="width: 319.2px">
 <col style="width: 109.2px">
@@ -105,93 +117,93 @@ The Official OCR represents the performance is based on the OCR results provided
 </colgroup>
 <thead>
   <tr>
-    <th rowspan="2">Model</th>
-    <th rowspan="2">Prompt</th>
-    <th colspan="2">Test Data</th>
-    <th colspan="2">Val Data</th>
+    <th class="tg-9wq8" rowspan="2">Model</th>
+    <th class="tg-9wq8" rowspan="2">Prompt</th>
+    <th class="tg-c3ow" colspan="2">Test Data</th>
+    <th class="tg-c3ow" colspan="2">Val Data</th>
   </tr>
   <tr>
-    <th>ANLS</th>
-    <th>↑</th>
-    <th>ANLS</th>
-    <th>↑</th>
+    <th class="tg-c3ow">ANLS</th>
+    <th class="tg-c3ow">⬆</th>
+    <th class="tg-c3ow">ANLS</th>
+    <th class="tg-c3ow">⬆</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td rowspan="2">Claude</td>
-    <td>Plain</td>
-    <td>0.2298</td>
-    <td>-</td>
-    <td>0.2144</td>
-    <td>-</td>
+    <td class="tg-lboi" rowspan="2">Claude</td>
+    <td class="tg-c3ow">Plain</td>
+    <td class="tg-c3ow">0.2298</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">0.2144</td>
+    <td class="tg-c3ow">-</td>
   </tr>
   <tr>
-    <td>LATIN</td>
-    <td>0.8366</td>
-    <td>+0.6038</td>
-    <td>0.8311</td>
-    <td>+0.6167</td>
+    <td class="tg-c3ow">LATIN</td>
+    <td class="tg-c3ow">0.8366</td>
+    <td class="tg-c3ow">+0.6038</td>
+    <td class="tg-c3ow">0.8311</td>
+    <td class="tg-c3ow">+0.6167</td>
   </tr>
   <tr>
-    <td rowspan="2">Azure ChatGPT (Completion)</td>
-    <td>Plain</td>
-    <td>0.6866</td>
-    <td>-</td>
-    <td>0.6795</td>
-    <td>-</td>
+    <td class="tg-lboi" rowspan="2">Azure ChatGPT (Completion)</td>
+    <td class="tg-c3ow">Plain</td>
+    <td class="tg-c3ow">0.6866</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">0.6795</td>
+    <td class="tg-c3ow">-</td>
   </tr>
   <tr>
-    <td>LATIN</td>
-    <td>0.8255</td>
-    <td>+0.1389</td>
-    <td>0.8135</td>
-    <td>+0.1340</td>
+    <td class="tg-c3ow">LATIN</td>
+    <td class="tg-c3ow">0.8255</td>
+    <td class="tg-c3ow">+0.1389</td>
+    <td class="tg-c3ow">0.8135</td>
+    <td class="tg-c3ow">+0.1340</td>
   </tr>
   <tr>
-    <td rowspan="2">Azure ChatGPT (ChatCompletion)</td>
-    <td>Plain</td>
-    <td>TODO</td>
-    <td>-</td>
-    <td>TODO</td>
-    <td>-</td>
+    <td class="tg-lboi" rowspan="2">Azure ChatGPT (ChatCompletion)</td>
+    <td class="tg-c3ow">Plain</td>
+    <td class="tg-c3ow">TODO</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">TODO</td>
+    <td class="tg-c3ow">-</td>
   </tr>
   <tr>
-    <td>LATIN</td>
-    <td>TODO</td>
-    <td>TODO</td>
-    <td>0.5954 (Official OCR)</td>
-    <td>TODO</td>
+    <td class="tg-c3ow">LATIN</td>
+    <td class="tg-c3ow">TODO</td>
+    <td class="tg-c3ow">TODO</td>
+    <td class="tg-c3ow">0.5954 (Official OCR)</td>
+    <td class="tg-c3ow">TODO</td>
   </tr>
   <tr>
-    <td rowspan="2">Alpaca (7B)</td>
-    <td>Plain</td>
-    <td>0.3567</td>
-    <td>-</td>
-    <td>0.3506</td>
-    <td>-</td>
+    <td class="tg-lboi" rowspan="2">Alpaca (7B)</td>
+    <td class="tg-c3ow">Plain</td>
+    <td class="tg-c3ow">0.3567</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-pb0m">0.3506</td>
+    <td class="tg-pb0m">-</td>
   </tr>
   <tr>
-    <td>LATIN</td>
-    <td>0.4200</td>
-    <td>+0.0633</td>
-    <td>0.4304</td>
-    <td>+0.0798 </td>
+    <td class="tg-c3ow">LATIN</td>
+    <td class="tg-c3ow">0.4200</td>
+    <td class="tg-c3ow">+0.0633</td>
+    <td class="tg-pb0m">0.4304</td>
+    <td class="tg-pb0m">+0.0798 </td>
   </tr>
   <tr>
-    <td rowspan="2">Vicuna (13B)</td>
-    <td>Plain</td>
-    <td>DOING</td>
-    <td>-</td>
-    <td>DOING</td>
-    <td>-</td>
+    <td class="tg-lboi" rowspan="2">Vicuna (13B)</td>
+    <td class="tg-c3ow">Plain</td>
+    <td class="tg-c3ow">0.0710</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">0.0688</td>
+    <td class="tg-c3ow">-</td>
   </tr>
   <tr>
-    <td>LATIN</td>
-    <td>0.4725 </td>
-    <td>DOING</td>
-    <td>0.4597 </td>
-    <td>DOING</td>
+    <td class="tg-c3ow">LATIN</td>
+    <td class="tg-pb0m">0.4725 </td>
+    <td class="tg-c3ow">+0.4015</td>
+    <td class="tg-pb0m">0.4597 </td>
+    <td class="tg-c3ow">+0.3909</td>
   </tr>
 </tbody>
 </table>
