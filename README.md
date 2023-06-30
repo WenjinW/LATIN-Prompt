@@ -63,7 +63,7 @@ bash script/claude_eval.sh 0 claude docvqa_due_azure task_instruction
 bash script/claude_eval.sh 0 claude docvqa_due_azure space
 ```
 
-### Examples with Azure GPT-3.5-turbo (ChatGPT) Completion
+### Examples with Azure OpenAI GPT-3.5-turbo (ChatGPT) Completion
 #### Example: GPT-3.5-turbo + LATIN-Prompt on DocVQA (Azure OCR)
 ```bash
 bash script/claude_eval.sh 0 gpt-35 docvqa_due_azure task_instruction_space
@@ -74,10 +74,16 @@ bash script/claude_eval.sh 0 gpt-35 docvqa_due_azure task_instruction_space
 bash script/claude_eval.sh 0 gpt-35 docvqa_due_azure plain
 ```
 
-### Examples with Azure GPT-3.5-turbo (ChatGPT) ChatCompletion
+### Examples with Azure OpenAI GPT-3.5-turbo (ChatGPT) ChatCompletion
 #### Example: GPT-3.5-turbo + LATIN-Prompt on DocVQA
 ```bash
 bash script/claude_eval.sh 0 gpt-35-chat docvqa task_instruction_space
+```
+
+### Examples with Azure OpenAI text-davinci-003 Completion
+#### Example: text-davinci-003 + LATIN-Prompt on DocVQA (Azure OCR)
+```bash
+bash script/claude_eval.sh 0 text-davinci-003 docvqa_due_azure task_instruction_space
 ```
 
 ### Examples with Alpaca and Vicuna
