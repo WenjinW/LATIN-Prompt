@@ -11,6 +11,7 @@ Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question A
 </p>
 
 ## News
+- **2023.09.06**: We introduce LATIN-Tuning for Alpaca, which enhances its zero-shot performance on DocVQA from 0.3567 to 0.6697.
 - **2023.06.30**: We now provide implementations based on Azure OpenAI text-davinci-003 Completion. 
 - **2023.06.29**: We now provide implementations based on [Alpaca-7B](https://github.com/tatsu-lab/stanford_alpaca) and [Vicuna-13B](https://github.com/vllm-project/vllm). 
 
@@ -112,15 +113,7 @@ The Official OCR represents the performance is based on the OCR results provided
 .tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
 .tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
 </style>
-<table class="tg" style="undefined;table-layout: fixed; width: 951px">
-<colgroup>
-<col style="width: 364.2px">
-<col style="width: 126.2px">
-<col style="width: 96.2px">
-<col style="width: 100.2px">
-<col style="width: 183.2px">
-<col style="width: 81.2px">
-</colgroup>
+<table class="tg">
 <thead>
   <tr>
     <th class="tg-9wq8" rowspan="2">Model</th>
@@ -190,7 +183,7 @@ The Official OCR represents the performance is based on the OCR results provided
     <td class="tg-c3ow">-</td>
   </tr>
   <tr>
-    <td class="tg-lboi" rowspan="2">Alpaca (7B)</td>
+    <td class="tg-lboi" rowspan="3">Alpaca (7B)</td>
     <td class="tg-c3ow">Plain</td>
     <td class="tg-c3ow">0.3567</td>
     <td class="tg-c3ow">-</td>
@@ -202,7 +195,14 @@ The Official OCR represents the performance is based on the OCR results provided
     <td class="tg-c3ow">0.4200</td>
     <td class="tg-c3ow">+0.0633</td>
     <td class="tg-c3ow">0.4304</td>
-    <td class="tg-c3ow">+0.0798 </td>
+    <td class="tg-c3ow">+0.0798</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">LATIN-Tuning + LATIN-Prompt</td>
+    <td class="tg-c3ow">0.6697</td>
+    <td class="tg-c3ow">+0.3130</td>
+    <td class="tg-c3ow">0.6668</td>
+    <td class="tg-c3ow">+0.3162</td>
   </tr>
   <tr>
     <td class="tg-lboi" rowspan="2">Vicuna (13B)</td>
@@ -214,9 +214,9 @@ The Official OCR represents the performance is based on the OCR results provided
   </tr>
   <tr>
     <td class="tg-c3ow">LATIN</td>
-    <td class="tg-c3ow">0.4725 </td>
+    <td class="tg-c3ow">0.4725</td>
     <td class="tg-c3ow">+0.4015</td>
-    <td class="tg-c3ow">0.4597 </td>
+    <td class="tg-c3ow">0.4597</td>
     <td class="tg-c3ow">+0.3909</td>
   </tr>
 </tbody>
