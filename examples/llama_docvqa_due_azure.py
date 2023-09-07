@@ -17,7 +17,7 @@ import datasets
 import wandb
 
 from metric.anls import ANLS
-from utils.util import model_path
+from utils.util import model_path_config
 from utils import space_layout
 
 
@@ -79,7 +79,7 @@ class CustomArguments:
     )
 
     def __post_init__(self):
-        self.model_name_or_path = model_path[self.model_name_or_path]
+        self.model_name_or_path = model_path_config[self.model_name_or_path]
         self.datas_dir = os.path.expanduser(self.datas_dir)
 
 

@@ -17,7 +17,9 @@ import datasets
 import wandb
 
 from metric.anls import ANLS
-from utils.util import model_path, is_same_line, union_box, is_adj_line
+from utils.model_path_config import model_path_config
+
+from utils.util import is_same_line, union_box, is_adj_line
 from utils import space_layout
 
 
@@ -69,7 +71,7 @@ class CustomArguments:
     )
 
     def __post_init__(self):
-        self.model_name_or_path = model_path[self.model_name_or_path]
+        self.model_name_or_path = model_path_config[self.model_name_or_path]
         self.datas_dir = os.path.expanduser(self.datas_dir)
 
 
