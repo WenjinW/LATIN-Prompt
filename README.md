@@ -11,7 +11,7 @@ Layout and Task Aware Instruction Prompt for Zero-shot Document Image Question A
 </p>
 
 ## News
-- **2023.09.07**: We support the Llama2 and LLama2-chat models.
+- **2023.09.07**: We support the Llama2 and Llama2-chat models.
 - **2023.09.06**: We introduce LATIN-Tuning for Alpaca, which enhances its zero-shot performance on DocVQA from 0.3567 to 0.6697.
 - **2023.06.30**: We now provide implementations based on Azure OpenAI text-davinci-003 Completion. 
 - **2023.06.29**: We now provide implementations based on [Alpaca-7B](https://github.com/tatsu-lab/stanford_alpaca) and [Vicuna-13B](https://github.com/vllm-project/vllm). 
