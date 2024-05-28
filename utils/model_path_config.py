@@ -13,4 +13,5 @@ model_path_config = {
     "vicuna-13b": "lmsys/vicuna-13b-v1.3",
     "llama2-7b-chat": "meta-llama/Llama-2-7b-chat-hf",
     "llama2-13b-chat": "meta-llama/Llama-2-13b-chat-hf",
+    "llama2-7b-chat-csv-claude-origin": os.path.expanduser("~/checkpoints/Llama-2-7b-chat-hf-csv-claude-origin"),
 }
